@@ -19,7 +19,7 @@ class AddNote extends React.Component {
                 value: '',
                 touched: false
             },
-            folder_id: {
+            folderId: {
                 value: '',
                 touched: false
             }
@@ -41,21 +41,21 @@ class AddNote extends React.Component {
     }
 
     updateFolder(folderSelect) {
-        this.setState({folder_id: {value: folderSelect, touched: true}});
+        this.setState({folderId: {value: folderSelect, touched: true}});
     }
     
     handleSubmit = event => {
         event.preventDefault();
-        const { name, content, folder_id } = this.state;
+        const { name, content, folderId } = this.state;
 
         console.log("Name:", name.value);
         console.log("Content:", content.value);
-        console.log("Folder_id:", folder_id.value);
+        console.log("FolderId:", folderId.value);
 
         const note = {
             name: name.value,
             content: content.value,
-            folder_id: folder_id.value,
+            folderId: folderId.value,
             modified: new Date()
         }
         console.log('Note: ', note);
@@ -73,7 +73,7 @@ class AddNote extends React.Component {
            })
            .then(note => {
                this.context.addNote(note)
-               this.props.history.push(`/notes/${note.folder_id}`)
+               this.props.history.push(`/notes/${note.folderId}`)
            })
            .catch(error => {
                console.error({ error })
@@ -90,7 +90,7 @@ class AddNote extends React.Component {
     
     //Validate Folder Selected
     validateFolder() {
-        const folder = this.state.folder_id.value.trim();
+        const folder = this.state.folderId.value.trim();
         if (folder.value === 'null') {
             return "Please Select Folder"
         }
@@ -137,7 +137,7 @@ class AddNote extends React.Component {
                             <option key={folder.id} value={folder.id}>{folder.name}</option>
                         )}
                     </select>
-                    {this.state.folder_id.touched && <ValidationError message={folderError} />}
+                    {this.state.folderId.touched && <ValidationError message={folderError} />}
                 </div>
                 <div className="addition_button">
                     <button 
